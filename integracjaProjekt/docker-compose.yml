@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: integracja
+    networks:
+      - backend
+  api_service:
+    build: .
+    volumes:
+      - type: volume
+        source: integracjaProjekt
+        target: /integracjaProjekt
+        volume:
+          nocopy: true
+    depends_on:
+      - db
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+    container_name: 'the_new_container_name'
+    environment:
+      spring.datasource.url: "jdbc:mysql://db:3306/integracja?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true"
+  front:
+    build: .. / .. / frontend / int /.
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api_service
+      - db
+    networks:
+      - host
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  integracjaProjekt:
+      external: true
+
