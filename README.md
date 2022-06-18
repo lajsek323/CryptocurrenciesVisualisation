@@ -8,7 +8,8 @@ CryptocurrenciesVisualisation is a web application that shows how cryptocurrency
 
 Java + Spring Boot - backend <br>
 React + Chart.js - frontend <br>
-MySQL - database
+MySQL - database <br>
+Docker - Used for containerization
 
 
 # Screenshots
